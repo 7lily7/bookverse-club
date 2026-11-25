@@ -5,6 +5,7 @@ A warm, illustrated, fully English book-sharing website. The 2026 list is alread
 ## Features
 - Illustrated, responsive homepage inspired by the supplied reading-room references.
 - 24 books across 12 months, with month filters and book-to-library search.
+- A separate **Other Books** section with its own search, downloads, and custom-title uploads.
 - Shared file library with filename search and direct download.
 - Invite-only email magic-link uploads; anonymous visitors may download.
 - Formats: PDF, EPUB, DOCX, TXT, MOBI; max 20 MB per file.
@@ -20,7 +21,7 @@ A warm, illustrated, fully English book-sharing website. The 2026 list is alread
 
 ## 2. Set up book sharing with Supabase
 1. Create a Supabase project at https://supabase.com/.
-2. In your project **SQL Editor**, paste the entire contents of `supabase-setup.sql` and run it. This creates a public downloads bucket, invited-member table, and access policies.
+2. In your project **SQL Editor**, paste the entire contents of `supabase-setup.sql` and run it. Run the updated SQL again when upgrading from a previous version to allow Other Books uploads. This creates a public downloads bucket, invited-member table, and access policies.
 3. In the SQL Editor, insert each permitted uploader, using their real email (all lowercase). Example:
    ```sql
    INSERT INTO public.club_members(email)
@@ -52,3 +53,9 @@ A warm, illustrated, fully English book-sharing website. The 2026 list is alread
 - `config.js`: public Supabase connection settings.
 - `supabase-setup.sql`: member permissions and file storage setup.
 - `assets/*.webp`: optimized illustrations supplied by the club owner.
+
+## Updating an existing BookVerse installation
+1. Replace these four repository files with the new versions: `index.html`, `app.js`, `styles.css`, `supabase-setup.sql`. **Keep your existing configured `config.js`** unchanged.
+2. In your Supabase SQL Editor, run the updated `supabase-setup.sql` once more to permit safe `other--...` file names. This preserves existing books and accounts.
+3. Refresh the website. Other Books has its own navigation link, search, and upload flow. Choose **Other Books** in the upload dialog and type a book title.
+4. Old 2026 entries remain untouched. The new Other Books shelf is independent of the original 24 titles.

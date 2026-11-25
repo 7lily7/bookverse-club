@@ -9,14 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
   <script src="config.js"></script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=2"></script>
 </head>
 <body>
   <header class="site-header">
     <a href="#home" class="brand" aria-label="BookVerse home"><span class="brand-mark" aria-hidden="true">❦</span><span>Book<span class="brand-italic">Verse</span></span></a>
-    <nav class="nav-links" aria-label="Main navigation"><a href="#home" class="nav-link active">Home</a><a href="#reading-list" class="nav-link">2026 Books</a><a href="#shared-library" class="nav-link">Shared Library</a></nav>
+    <nav class="nav-links" aria-label="Main navigation"><a href="#home" class="nav-link active">Home</a><a href="#reading-list" class="nav-link">2026 Books</a><a href="#shared-library" class="nav-link">Shared Library</a><a href="#other-books" class="nav-link">Other Books</a></nav>
     <div class="nav-actions"><a class="nav-library" href="#shared-library">Browse files <span aria-hidden="true">↗</span></a><button class="avatar" id="accountButton" type="button" aria-label="Member account" title="Member account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></button></div>
   </header>
 
@@ -44,13 +44,31 @@
       <div id="libraryStatus" class="library-status" role="status"></div><div id="fileGrid" class="file-grid"></div>
     </section>
 
+
+    <section class="other-section section-shell" id="other-books">
+      <div class="other-feature">
+        <div class="other-art" role="img" aria-label="A cozy illustrated bookshelf with books and flowers"></div>
+        <div class="other-feature-content">
+          <span class="pill-label">✦ BEYOND THE READING LIST</span>
+          <p class="section-kicker">An open-ended shelf of discoveries</p>
+          <h2>More stories, <em>more magic.</em></h2>
+          <p>Found something wonderful outside our 2026 picks? Share your own favorite finds with the club. Every book has a place here.</p>
+          <button class="button button-primary" type="button" data-upload-other>Add another book <span aria-hidden="true">＋</span></button>
+        </div>
+      </div>
+      <div class="library-heading other-heading"><div><p class="section-kicker">From our readers, with love</p><h2>The <em>Other Books</em> Shelf</h2><p class="section-subtitle">A growing collection beyond our annual reading list.</p></div><span class="library-count" id="otherCount">0 shared books</span></div>
+      <div class="library-toolbar"><label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="otherSearch" type="search" placeholder="Search other books or filenames..." aria-label="Search other books"></label><button type="button" class="outline-btn" id="refreshOther">↻ Refresh</button></div>
+      <div id="otherStatus" class="library-status" role="status" aria-live="polite"></div>
+      <div id="otherGrid" class="file-grid other-file-grid"></div>
+    </section>
+
     <section class="closing section-shell"><span>✿</span><p>And so the next chapter begins...</p><span>✿</span></section>
   </main>
   <footer class="footer"><div><a href="#home" class="brand footer-brand"><span class="brand-mark">❦</span> Book<span class="brand-italic">Verse</span></a><p>Made for the love of reading, and the joy of sharing.</p></div><span>© 2026 BookVerse Reading Club · Stay curious ♡</span></footer>
 
   <dialog id="clubDialog" class="club-dialog" aria-labelledby="dialogTitle"><form method="dialog" class="dialog-close-row"><button class="dialog-close" value="cancel" aria-label="Close dialog">×</button></form><div class="dialog-content"><span class="pill-label">✦ BOOKVERSE MEMBERS</span><h2 id="dialogTitle">Share a little <em>magic.</em></h2><p id="dialogIntro">Sign in with your club email to upload a book. Everyone can browse and download shared files.</p>
     <div id="authPanel"><form id="loginForm" class="stack-form"><label>Your email<input type="email" name="email" required autocomplete="email" placeholder="reader@example.com"></label><button class="button button-primary" type="submit">Send sign-in link ↗</button></form><p class="hint">For privacy, only invited club members are allowed to upload.</p></div>
-    <div id="signedPanel" hidden><p class="member-line">Signed in as <strong id="signedEmail"></strong> · <button type="button" class="text-btn" id="signOut">Sign out</button></p><form id="uploadForm" class="stack-form"><label>Reading-list title<select id="uploadBook" required></select></label><label>Choose a book file<input type="file" id="uploadFile" accept=".pdf,.epub,.docx,.txt,.mobi" required></label><p class="hint">PDF, EPUB, DOCX, TXT, or MOBI · Maximum 20 MB · Share only files you have permission to distribute.</p><button class="button button-primary" id="uploadSubmit" type="submit">Upload to the club ↗</button></form></div>
+    <div id="signedPanel" hidden><p class="member-line">Signed in as <strong id="signedEmail"></strong> · <button type="button" class="text-btn" id="signOut">Sign out</button></p><form id="uploadForm" class="stack-form"><label>Choose a shelf<select id="uploadType"><option value="reading">2026 Reading List</option><option value="other">Other Books</option></select></label><label id="readingBookField">Reading-list title<select id="uploadBook" required></select></label><label id="otherTitleField" hidden>Book title<input id="otherTitle" type="text" maxlength="80" placeholder="e.g. A favorite novel" autocomplete="off"></label><label>Choose a book file<input type="file" id="uploadFile" accept=".pdf,.epub,.docx,.txt,.mobi" required></label><p class="hint">PDF, EPUB, DOCX, TXT, or MOBI · Maximum 20 MB · Share only files you have permission to distribute.</p><button class="button button-primary" id="uploadSubmit" type="submit">Upload to the club ↗</button></form></div>
     <div class="dialog-feedback" id="dialogFeedback" role="status" aria-live="polite"></div>
   </div></dialog>
 </body>

@@ -30,10 +30,12 @@ const bookGrid = $('#bookGrid');
 const monthPicker = $('#monthPicker');
 const fileGrid = $('#fileGrid');
 const statusEl = $('#libraryStatus');
+const otherStatus = $('#otherStatus');
+const otherGrid = $('#otherGrid');
 const feedback = $('#dialogFeedback');
 const config = window.BOOKVERSE_CONFIG || {};
 const configured = Boolean(config.supabaseUrl && config.supabaseAnonKey && /^https:\/\//.test(config.supabaseUrl));
-let supabase = null, member = null, uploadedFiles = [], activeMonth = 'all';
+let supabase = null, member = null, uploadedFiles = [], otherFiles = [], activeMonth = 'all';
 
 function escapeHTML(s) {return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function formatSize(bytes) {return bytes < 1024*1024 ? `${Math.max(1,Math.round(bytes/1024))} KB` : `${(bytes/(1024*1024)).toFixed(1)} MB`;}
@@ -51,48 +53,94 @@ $('#uploadBook').innerHTML = books.map(b=>`<option value="${b.id}">${escapeHTML(
 paintBooks();
 
 function parseObject(obj) {
-  // Names are: bookId--randomId--sanitizedOriginalName
+  // The two shelf formats are: 01-1--uuid--filename and other--uuid--title--filename.
+  const otherMatch = /^other--([a-f0-9-]+)--([A-Za-z0-9._-]+)--([A-Za-z0-9._-]+)$/.exec(obj.name);
+  if (otherMatch) return {
+    key: obj.name, kind: 'other', title: otherMatch[2].replace(/_/g, ' '),
+    original: otherMatch[3], size: obj.metadata?.size ?? 0,
+    created: obj.created_at || '', ext: otherMatch[3].split('.').pop().toUpperCase()
+  };
   const match = /^([0-9]{2}-[12])--([a-f0-9-]+)--(.+)$/.exec(obj.name);
-  if(!match) return null;
-  const book=books.find(b=>b.id===match[1]); if(!book)return null;
-  return {key:obj.name, book, original:match[3], size:obj.metadata?.size??0, created:obj.created_at||'', ext:match[3].split('.').pop().toUpperCase()};
+  if (!match) return null;
+  const book = books.find(b => b.id === match[1]); if (!book) return null;
+  return {key: obj.name, kind: 'reading', book, original: match[3], size: obj.metadata?.size ?? 0,
+    created: obj.created_at || '', ext: match[3].split('.').pop().toUpperCase()};
+}
+function fileCard(f) {
+  const url = supabase.storage.from(config.bucket || 'bookclub-files').getPublicUrl(f.key,{download:f.original}).data.publicUrl;
+  const date = f.created ? new Date(f.created).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : 'Shared file';
+  const title = f.kind === 'other' ? f.title : f.book.title;
+  return `<article class="file-item"><div class="file-icon">${escapeHTML(f.ext.slice(0,5))}</div><div class="file-info"><strong title="${escapeHTML(title)}">${escapeHTML(title)}</strong><small>${escapeHTML(f.original)} · ${escapeHTML(date)}${f.size ? ' · ' + formatSize(f.size) : ''}</small></div><a class="download-btn" href="${escapeHTML(url)}" aria-label="Download ${escapeHTML(f.original)}">↓ Download</a></article>`;
 }
 function renderFiles() {
-  const query=$('#librarySearch').value.trim().toLocaleLowerCase();
-  const filtered = uploadedFiles.filter(f=>`${f.book.title} ${f.original} ${f.book.month}`.toLocaleLowerCase().includes(query));
-  $('#fileCount').textContent = `${uploadedFiles.length} shared file${uploadedFiles.length===1?'':'s'}`;
-  fileGrid.innerHTML = filtered.map((f,i)=> {
-    const url=supabase.storage.from(config.bucket||'bookclub-files').getPublicUrl(f.key,{download:f.original}).data.publicUrl;
-    const date=f.created?new Date(f.created).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'Shared file';
-    return `<article class="file-item"><div class="file-icon">${escapeHTML(f.ext.slice(0,5))}</div><div class="file-info"><strong title="${escapeHTML(f.original)}">${escapeHTML(f.original)}</strong><small>${escapeHTML(f.book.title)} · ${escapeHTML(date)}${f.size?' · '+formatSize(f.size):''}</small></div><a class="download-btn" href="${escapeHTML(url)}" aria-label="Download ${escapeHTML(f.original)}">↓ Download</a></article>`;
-  }).join('');
-  if(!filtered.length && uploadedFiles.length && query) statusEl.textContent='No matching files yet. Try another title or filename.';
-  else if(!uploadedFiles.length && configured) statusEl.textContent='The shelf is waiting for its first shared book. Be the first to contribute!';
-  else statusEl.textContent='';
+  const query = $('#librarySearch').value.trim().toLocaleLowerCase();
+  const filtered = uploadedFiles.filter(f => `${f.book.title} ${f.original} ${f.book.month}`.toLocaleLowerCase().includes(query));
+  $('#fileCount').textContent = `${uploadedFiles.length} shared file${uploadedFiles.length === 1 ? '' : 's'}`;
+  fileGrid.innerHTML = filtered.map(fileCard).join('');
+  if (!filtered.length && uploadedFiles.length && query) statusEl.textContent = 'No matching files yet. Try another title or filename.';
+  else if (!uploadedFiles.length && configured) statusEl.textContent = 'The shelf is waiting for its first shared book. Be the first to contribute!';
+  else statusEl.textContent = '';
 }
-$('#librarySearch').addEventListener('input',renderFiles);
+function renderOtherFiles() {
+  const query = $('#otherSearch').value.trim().toLocaleLowerCase();
+  const filtered = otherFiles.filter(f => `${f.title} ${f.original}`.toLocaleLowerCase().includes(query));
+  $('#otherCount').textContent = `${otherFiles.length} shared book${otherFiles.length === 1 ? '' : 's'}`;
+  otherGrid.innerHTML = filtered.map(fileCard).join('');
+  if (!filtered.length && otherFiles.length && query) otherStatus.textContent = 'No matching books. Try a different search.';
+  else if (!otherFiles.length && configured) otherStatus.textContent = 'The Other Books shelf is waiting for its first discovery. ✦';
+  else otherStatus.textContent = '';
+}
+$('#librarySearch').addEventListener('input', renderFiles);
+$('#otherSearch').addEventListener('input', renderOtherFiles);
 async function loadFiles() {
-  if(!supabase){ statusEl.textContent='The reading list is ready! File sharing is not yet connected. Follow the setup steps in README.md to activate uploads and downloads.';return; }
-  statusEl.textContent='Opening the shared bookshelf...';
+  if (!supabase) {
+    statusEl.textContent = 'File sharing is not connected yet.';
+    otherStatus.textContent = 'File sharing is not connected yet.';
+    return;
+  }
+  statusEl.textContent = 'Opening the shared bookshelf...';
+  otherStatus.textContent = 'Discovering more books...';
   try {
-    let result=[];
-    for(let offset=0;offset<500;offset+=100){
-      const {data,error}=await supabase.storage.from(config.bucket||'bookclub-files').list('',{limit:100,offset,sortBy:{column:'created_at',order:'desc'}});
-      if(error)throw error;
-      result.push(...data);if(data.length<100)break;
+    let result = [];
+    for (let offset = 0; offset < 500; offset += 100) {
+      const {data,error} = await supabase.storage.from(config.bucket || 'bookclub-files').list('',{limit:100,offset,sortBy:{column:'created_at',order:'desc'}});
+      if (error) throw error;
+      result.push(...data); if (data.length < 100) break;
     }
-    uploadedFiles=result.map(parseObject).filter(Boolean).sort((a,b)=>b.created.localeCompare(a.created));
-    renderFiles();
-    if(result.length>=500)statusEl.textContent='Showing the newest 500 files.';
-  } catch(e){ statusEl.textContent=`Could not load shared files: ${e.message}`; }
+    const entries = result.map(parseObject).filter(Boolean).sort((a,b) => b.created.localeCompare(a.created));
+    uploadedFiles = entries.filter(f => f.kind === 'reading');
+    otherFiles = entries.filter(f => f.kind === 'other');
+    renderFiles(); renderOtherFiles();
+    if (result.length >= 500) {
+      statusEl.textContent = 'Showing up to 500 newest shared files.';
+      otherStatus.textContent = 'Showing up to 500 newest shared files.';
+    }
+  } catch(e) {
+    statusEl.textContent = `Could not load shared files: ${e.message}`;
+    otherStatus.textContent = `Could not load other books: ${e.message}`;
+  }
 }
-$('#refreshFiles').addEventListener('click',loadFiles);
+$('#refreshFiles').addEventListener('click', loadFiles);
+$('#refreshOther').addEventListener('click', loadFiles);
 
 const dialog=$('#clubDialog');
 function setFeedback(message){feedback.textContent=message;}
 function showDialog(){setFeedback('');dialog.showModal();}
 document.querySelectorAll('[data-upload]').forEach(btn=>btn.addEventListener('click',()=>{showDialog();if(!member && !configured)setFeedback('Uploads will become available once the club owner connects Supabase.');}));
 $('#accountButton').addEventListener('click',showDialog);
+function changeShelf(value) {
+  const isOther = value === 'other';
+  $('#uploadType').value = isOther ? 'other' : 'reading';
+  $('#readingBookField').hidden = isOther;
+  $('#otherTitleField').hidden = !isOther;
+  $('#uploadBook').required = !isOther;
+  $('#otherTitle').required = isOther;
+}
+$('#uploadType').addEventListener('change', e => changeShelf(e.target.value));
+document.querySelectorAll('[data-upload-other]').forEach(btn => btn.addEventListener('click', () => {
+  changeShelf('other'); showDialog();
+}));
+changeShelf('reading');
 function syncMember(){
   $('#authPanel').hidden=Boolean(member);
   $('#signedPanel').hidden=!member;
@@ -109,16 +157,22 @@ $('#signOut').addEventListener('click', async()=>{if(!supabase)return;await supa
 $('#uploadForm').addEventListener('submit', async e=> {
   e.preventDefault();if(!supabase||!member){setFeedback('Please sign in first.');return;}
   const file=$('#uploadFile').files?.[0], bookId=$('#uploadBook').value;
+  const isOther=$('#uploadType').value==='other';
   if(!file){setFeedback('Choose a book file first.');return;}
   if(!/\.(pdf|epub|docx|txt|mobi)$/i.test(file.name)){setFeedback('This file type is not supported.');return;}
   if(file.size>20*1024*1024){setFeedback('Please choose a file under 20 MB.');return;}
   const safeFileName=file.name.normalize('NFKD').replace(/[^a-zA-Z0-9._-]/g,'_').replace(/^\.+/,'').slice(-110)||'book.pdf';
-  const objectName=`${bookId}--${crypto.randomUUID()}--${safeFileName}`;
+  const rawTitle=$('#otherTitle').value.trim();
+  if(isOther && !rawTitle){setFeedback('Please enter a book title.');return;}
+  const safeTitle=rawTitle.normalize('NFKD').replace(/[^a-zA-Z0-9._-]/g,'_').replace(/^\.+/,'').slice(0,80).replace(/_+/g,'_') || 'Untitled';
+  const objectName=isOther
+    ? `other--${crypto.randomUUID()}--${safeTitle}--${safeFileName}`
+    : `${bookId}--${crypto.randomUUID()}--${safeFileName}`;
   const btn=$('#uploadSubmit');btn.disabled=true;btn.textContent='Uploading...';setFeedback('Uploading your file securely...');
   try {
     const {error}=await supabase.storage.from(config.bucket||'bookclub-files').upload(objectName,file,{upsert:false,contentType:file.type||'application/octet-stream',cacheControl:'3600'});
     if(error)throw error;
-    $('#uploadFile').value='';setFeedback('Book uploaded! Your club can now download it.');await loadFiles();
+    $('#uploadFile').value='';if(isOther)$('#otherTitle').value='';setFeedback('Book uploaded! Your club can now download it.');await loadFiles();
   }catch(err){setFeedback(`Upload failed: ${err.message}. If you are not on the club member list, ask the organizer for access.`);}
   finally{btn.disabled=false;btn.textContent='Upload to the club ↗';}
 });

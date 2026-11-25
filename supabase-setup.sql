@@ -32,7 +32,10 @@ CREATE POLICY "BookVerse invited member uploads" ON storage.objects
       WHERE m.email = lower(auth.jwt() ->> 'email')
     )
     AND lower(storage.extension(name)) IN ('pdf','epub','docx','txt','mobi')
-    AND name ~ '^[0-9]{2}-[12]--[a-f0-9-]+--[A-Za-z0-9._-]+$'
+    AND (
+      name ~ '^[0-9]{2}-[12]--[a-f0-9-]+--[A-Za-z0-9._-]+$'
+      OR name ~ '^other--[a-f0-9-]+--[A-Za-z0-9._-]+--[A-Za-z0-9._-]+$'
+    )
   );
 
 -- IMPORTANT: policy checks in the subquery must be able to read member rows.
