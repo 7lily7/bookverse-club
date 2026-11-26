@@ -1,0 +1,149 @@
+{
+  "2026": [
+    {
+      "id": "01-1",
+      "title": "The Backyard Bird Chronicles",
+      "author": "Amy Tan",
+      "isbn": "9780593536131"
+    },
+    {
+      "id": "01-2",
+      "title": "Outlive",
+      "author": "Peter Attia with Bill Gifford",
+      "isbn": "9780593236598"
+    },
+    {
+      "id": "02-1",
+      "title": "Love in the time of Cholera",
+      "author": "Gabriel García Márquez",
+      "isbn": "9780307389732"
+    },
+    {
+      "id": "02-2",
+      "title": "War Horse",
+      "author": "Michael Morpurgo",
+      "isbn": null
+    },
+    {
+      "id": "03-1",
+      "title": "Something in the woods loves you",
+      "author": "Jarod K. Anderson",
+      "isbn": null
+    },
+    {
+      "id": "03-2",
+      "title": "To the Lighthouse",
+      "author": "Virginia Woolf",
+      "isbn": "9780156907392"
+    },
+    {
+      "id": "04-1",
+      "title": "All Passion Spent",
+      "author": "Vita Sackville-West",
+      "isbn": null
+    },
+    {
+      "id": "04-2",
+      "title": "The City and its uncertain walls",
+      "author": "Haruki Murakami",
+      "isbn": null
+    },
+    {
+      "id": "05-1",
+      "title": "Why Fish Don’t Exist",
+      "author": "Lulu Miller",
+      "isbn": "9781501160349"
+    },
+    {
+      "id": "05-2",
+      "title": "Watership Down",
+      "author": "Richard Adams",
+      "isbn": null
+    },
+    {
+      "id": "06-1",
+      "title": "Atonement",
+      "author": "Ian McEwan",
+      "isbn": "9780385721790"
+    },
+    {
+      "id": "06-2",
+      "title": "Rebecca",
+      "author": "Daphne du Maurier",
+      "isbn": "9780380730407"
+    },
+    {
+      "id": "07-1",
+      "title": "Perfume",
+      "author": "Patrick Süskind",
+      "isbn": "9780375725845"
+    },
+    {
+      "id": "07-2",
+      "title": "Butter",
+      "author": "Asako Yuzuki",
+      "isbn": null
+    },
+    {
+      "id": "08-1",
+      "title": "The English Patient",
+      "author": "Michael Ondaatje",
+      "isbn": "9780679745204"
+    },
+    {
+      "id": "08-2",
+      "title": "The Hound of Baskervilles",
+      "author": "Arthur Conan Doyle",
+      "isbn": null
+    },
+    {
+      "id": "09-1",
+      "title": "The Odyssey",
+      "author": "Homer",
+      "isbn": "9780393356250"
+    },
+    {
+      "id": "09-2",
+      "title": "Odyssey",
+      "author": "Stephen Fry",
+      "isbn": null
+    },
+    {
+      "id": "10-1",
+      "title": "A Tree Grows in Brooklyn",
+      "author": "Betty Smith",
+      "isbn": "9780061120077"
+    },
+    {
+      "id": "10-2",
+      "title": "The Ocean would paint me blue",
+      "author": "Zoulfa Katouh",
+      "isbn": null
+    },
+    {
+      "id": "11-1",
+      "title": "The Correspondent",
+      "author": "Virginia Evans",
+      "isbn": null
+    },
+    {
+      "id": "11-2",
+      "title": "The Tin Drum",
+      "author": "Günter Grass",
+      "isbn": null
+    },
+    {
+      "id": "12-1",
+      "title": "Hercule Poirot’s Christmas",
+      "author": "Agatha Christie",
+      "isbn": null
+    },
+    {
+      "id": "12-2",
+      "title": "Mate",
+      "author": "Ali Hazelwood",
+      "isbn": null
+    }
+  ],
+  "2027": []
+}
