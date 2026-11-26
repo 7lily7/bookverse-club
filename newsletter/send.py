@@ -11,8 +11,25 @@ def req(url,method='GET',data=None,headers=None):
     r=urllib.request.Request(url,data=None if data is None else json.dumps(data).encode(),method=method,headers={'Content-Type':'application/json',**(headers or {})})
     with urllib.request.urlopen(r,timeout=30) as f:
         raw=f.read(); return json.loads(raw) if raw else None
+def 
+
 def db(path,method='GET',data=None,extra=None):
-    return req(URL+path,method,data,{'apikey':KEY,'Authorization':'Bearer '+KEY,**(extra or {})})
+    try:
+        return req(URL+path,method,data,{
+            'apikey':KEY,
+            'Authorization':'Bearer '+KEY,
+            **(extra or {})
+        })
+    except urllib.error.HTTPError as e:
+        print("API endpoint:", path.split('?')[0])
+        print("HTTP status:", e.code)
+        try:
+            result = json.loads(e.read())
+            print("API error code:", result.get('code'))
+        except Exception:
+            print("No JSON error response")
+        raise
+
 def rpc(name,data={}): return db('rpc/'+name,'POST',data)
 def rows(table,query=''):
     out=[]
