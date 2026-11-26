@@ -1,0 +1,35 @@
+name: BookVerse Newsletter
+on:
+  schedule:
+    - cron: '0 1 10 * *'
+    - cron: '17,47 * * * *'
+  workflow_dispatch:
+    inputs:
+      test_admins:
+        description: Send test to both administrators only
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: bookverse-newsletter
+  cancel-in-progress: false
+jobs:
+  newsletter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python newsletter/send.py
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          TEST_ADMINS: ${{ inputs.test_admins }}
+          RUN_MONTHLY: ${{ github.event.schedule == '0 1 10 * *' }}
