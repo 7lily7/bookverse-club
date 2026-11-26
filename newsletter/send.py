@@ -1,4 +1,4 @@
-import os,json,urllib.request,urllib.parse,datetime,html,string,pathlib,sys
+import os,json,urllib.error,urllib.request,urllib.parse,datetime,html,string,pathlib,sys
 from zoneinfo import ZoneInfo
 import smtplib, ssl
 from email.message import EmailMessage
@@ -11,25 +11,19 @@ def req(url,method='GET',data=None,headers=None):
     r=urllib.request.Request(url,data=None if data is None else json.dumps(data).encode(),method=method,headers={'Content-Type':'application/json',**(headers or {})})
     with urllib.request.urlopen(r,timeout=30) as f:
         raw=f.read(); return json.loads(raw) if raw else None
-def 
-
 def db(path,method='GET',data=None,extra=None):
     try:
-        return req(URL+path,method,data,{
-            'apikey':KEY,
-            'Authorization':'Bearer '+KEY,
-            **(extra or {})
-        })
+        return req(URL+path,method,data,{'apikey':KEY,'Authorization':'Bearer '+KEY,**(extra or {})})
     except urllib.error.HTTPError as e:
-        print("API endpoint:", path.split('?')[0])
-        print("HTTP status:", e.code)
+        print('API endpoint:', path.split('?')[0], flush=True)
+        print('HTTP status:', e.code, flush=True)
         try:
-            result = json.loads(e.read())
-            print("API error code:", result.get('code'))
+            result=json.loads(e.read())
+            code=result.get('code') if isinstance(result,dict) else None
+            print('API error code:', code if isinstance(code,str) and code.isalnum() and len(code)<=20 else 'unavailable', flush=True)
         except Exception:
-            print("No JSON error response")
+            print('No JSON error response', flush=True)
         raise
-
 def rpc(name,data={}): return db('rpc/'+name,'POST',data)
 def rows(table,query=''):
     out=[]
