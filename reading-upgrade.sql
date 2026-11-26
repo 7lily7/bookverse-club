@@ -1,0 +1,17 @@
+begin;
+create table if not exists public.reading_stats (book_id text primary key, reading integer check(reading>=0), finished integer check(finished>=0), ratings numeric[] not null default '{}', check (0 <= all(ratings) and 5 >= all(ratings)));
+create table if not exists public.book_reviews (book_id text not null, user_id uuid not null default auth.uid(), display_name text not null check(char_length(display_name) between 1 and 60), review text not null check(char_length(review) between 1 and 5000), rating numeric check(rating between 0 and 5), primary key(book_id,user_id));
+alter table public.reading_stats enable row level security;
+alter table public.book_reviews enable row level security;
+grant select on public.reading_stats,public.book_reviews to anon,authenticated;
+grant insert,update on public.reading_stats,public.book_reviews to authenticated;
+drop policy if exists stats_read on public.reading_stats;
+create policy stats_read on public.reading_stats for select using(true);
+drop policy if exists reviews_read on public.book_reviews;
+create policy reviews_read on public.book_reviews for select using(true);
+drop policy if exists stats_write on public.reading_stats;
+create policy stats_write on public.reading_stats for all to authenticated using(exists(select 1 from public.club_members where email=lower(auth.jwt()->>'email'))) with check(exists(select 1 from public.club_members where email=lower(auth.jwt()->>'email')));
+drop policy if exists reviews_write on public.book_reviews;
+create policy reviews_write on public.book_reviews for all to authenticated using(user_id=auth.uid() and exists(select 1 from public.club_members where email=lower(auth.jwt()->>'email'))) with check(user_id=auth.uid() and exists(select 1 from public.club_members where email=lower(auth.jwt()->>'email')));
+insert into public.reading_stats(book_id,reading,finished,ratings) values ('11-1',24,11,array[3,3.5,4.5,4.75,3.5,3.5,3.5,3,4]::numeric[]),('11-2',3,null,'{}') on conflict do nothing;
+commit;
