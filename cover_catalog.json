@@ -1,0 +1,284 @@
+[
+  {
+    "title": "The Backyard Bird Chronicles",
+    "author": "Amy Tan",
+    "isbn": "9780593536131",
+    "path": "assets/covers/01-1.jpg"
+  },
+  {
+    "title": "Outlive",
+    "author": "Peter Attia",
+    "isbn": "9780593236598",
+    "path": "assets/covers/01-2.jpg"
+  },
+  {
+    "title": "Love in the time of Cholera",
+    "author": "Gabriel García Márquez",
+    "isbn": "9780307389732",
+    "path": "assets/covers/02-1.jpg"
+  },
+  {
+    "title": "War Horse",
+    "author": "Michael Morpurgo",
+    "isbn": null,
+    "path": "assets/covers/02-2.jpg"
+  },
+  {
+    "title": "Something in the woods loves you",
+    "author": "Jarod K. Anderson",
+    "isbn": null,
+    "path": "assets/covers/03-1.jpg"
+  },
+  {
+    "title": "To the Lighthouse",
+    "author": "Virginia Woolf",
+    "isbn": "9780156907392",
+    "path": "assets/covers/03-2.jpg"
+  },
+  {
+    "title": "All Passion Spent",
+    "author": "Vita Sackville-West",
+    "isbn": null,
+    "path": "assets/covers/04-1.jpg"
+  },
+  {
+    "title": "The City and its uncertain walls",
+    "author": "Haruki Murakami",
+    "isbn": null,
+    "path": "assets/covers/04-2.jpg"
+  },
+  {
+    "title": "Why Fish Don’t Exist",
+    "author": "Lulu Miller",
+    "isbn": "9781501160349",
+    "path": "assets/covers/05-1.jpg"
+  },
+  {
+    "title": "Watership Down",
+    "author": "Richard Adams",
+    "isbn": null,
+    "path": "assets/covers/05-2.jpg"
+  },
+  {
+    "title": "Atonement",
+    "author": "Ian McEwan",
+    "isbn": "9780385721790",
+    "path": "assets/covers/06-1.jpg"
+  },
+  {
+    "title": "Rebecca",
+    "author": "Daphne du Maurier",
+    "isbn": "9780380730407",
+    "path": "assets/covers/06-2.jpg"
+  },
+  {
+    "title": "Perfume",
+    "author": "Patrick Süskind",
+    "isbn": "9780375725845",
+    "path": "assets/covers/07-1.jpg"
+  },
+  {
+    "title": "Butter",
+    "author": "Asako Yuzuki",
+    "isbn": null,
+    "path": "assets/covers/07-2.jpg"
+  },
+  {
+    "title": "The English Patient",
+    "author": "Michael Ondaatje",
+    "isbn": "9780679745204",
+    "path": "assets/covers/08-1.jpg"
+  },
+  {
+    "title": "The Hound of Baskervilles",
+    "author": "Arthur Conan Doyle",
+    "isbn": null,
+    "path": "assets/covers/08-2.jpg"
+  },
+  {
+    "title": "The Odyssey",
+    "author": "Homer",
+    "isbn": "9780393356250",
+    "path": "assets/covers/09-1.jpg"
+  },
+  {
+    "title": "Odyssey",
+    "author": "Stephen Fry",
+    "isbn": null,
+    "path": "assets/covers/09-2.jpg"
+  },
+  {
+    "title": "A Tree Grows in Brooklyn",
+    "author": "Betty Smith",
+    "isbn": "9780061120077",
+    "path": "assets/covers/10-1.jpg"
+  },
+  {
+    "title": "The Ocean would paint me blue",
+    "author": "Zoulfa Katouh",
+    "isbn": null,
+    "path": "assets/covers/10-2.jpg"
+  },
+  {
+    "title": "The Correspondent",
+    "author": "Virginia Evans",
+    "isbn": null,
+    "path": "assets/covers/11-1.jpg"
+  },
+  {
+    "title": "The Tin Drum",
+    "author": "Günter Grass",
+    "isbn": null,
+    "path": "assets/covers/11-2.jpg"
+  },
+  {
+    "title": "Hercule Poirot’s Christmas",
+    "author": "Agatha Christie",
+    "isbn": null,
+    "path": "assets/covers/12-1.jpg"
+  },
+  {
+    "title": "Mate",
+    "author": "Ali Hazelwood",
+    "isbn": null,
+    "path": "assets/covers/12-2.jpg"
+  },
+  {
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "isbn": "9780141439518",
+    "path": "assets/books/1342.jpg"
+  },
+  {
+    "title": "Jane Eyre",
+    "author": "Charlotte Brontë",
+    "isbn": "9780141441146",
+    "path": "assets/books/1260.jpg"
+  },
+  {
+    "title": "The Adventures of Sherlock Holmes",
+    "author": "Arthur Conan Doyle",
+    "isbn": "9780141034355",
+    "path": "assets/books/1661.jpg"
+  },
+  {
+    "title": "Alice’s Adventures in Wonderland",
+    "author": "Lewis Carroll",
+    "isbn": "9780141439761",
+    "path": "assets/books/11.jpg"
+  },
+  {
+    "title": "The Picture of Dorian Gray",
+    "author": "Oscar Wilde",
+    "isbn": "9780141439570",
+    "path": "assets/books/174.jpg"
+  },
+  {
+    "title": "Frankenstein",
+    "author": "Mary Shelley",
+    "isbn": "9780141439471",
+    "path": "assets/books/84.jpg"
+  },
+  {
+    "title": "Dracula",
+    "author": "Bram Stoker",
+    "isbn": "9780141439846",
+    "path": "assets/books/345.jpg"
+  },
+  {
+    "title": "Moby-Dick",
+    "author": "Herman Melville",
+    "isbn": "9780142437247",
+    "path": "assets/books/2701.jpg"
+  },
+  {
+    "title": "A Tale of Two Cities",
+    "author": "Charles Dickens",
+    "isbn": "9780141439600",
+    "path": "assets/books/98.jpg"
+  },
+  {
+    "title": "Great Expectations",
+    "author": "Charles Dickens",
+    "isbn": "9780141439563",
+    "path": "assets/books/1400.jpg"
+  },
+  {
+    "title": "Wuthering Heights",
+    "author": "Emily Brontë",
+    "isbn": "9780141439556",
+    "path": "assets/books/768.jpg"
+  },
+  {
+    "title": "Little Women",
+    "author": "Louisa May Alcott",
+    "isbn": "9780147514011",
+    "path": "assets/books/514.jpg"
+  },
+  {
+    "title": "Anne of Green Gables",
+    "author": "L. M. Montgomery",
+    "isbn": "9780141321592",
+    "path": "assets/books/45.jpg"
+  },
+  {
+    "title": "The Secret Garden",
+    "author": "Frances Hodgson Burnett",
+    "isbn": "9780141321066",
+    "path": "assets/books/113.jpg"
+  },
+  {
+    "title": "Treasure Island",
+    "author": "Robert Louis Stevenson",
+    "isbn": "9780141321004",
+    "path": "assets/books/120.jpg"
+  },
+  {
+    "title": "The Adventures of Tom Sawyer",
+    "author": "Mark Twain",
+    "isbn": "9780143039563",
+    "path": "assets/books/74.jpg"
+  },
+  {
+    "title": "The Time Machine",
+    "author": "H. G. Wells",
+    "isbn": "9780141439976",
+    "path": "assets/books/35.jpg"
+  },
+  {
+    "title": "The War of the Worlds",
+    "author": "H. G. Wells",
+    "isbn": "9780141441030",
+    "path": "assets/books/36.jpg"
+  },
+  {
+    "title": "The Strange Case of Dr. Jekyll and Mr. Hyde",
+    "author": "Robert Louis Stevenson",
+    "isbn": "9780141439730",
+    "path": "assets/books/43.jpg"
+  },
+  {
+    "title": "A Modest Proposal",
+    "author": "Jonathan Swift",
+    "isbn": "9780140436426",
+    "path": "assets/books/1080.jpg"
+  },
+  {
+    "title": "The Count of Monte Cristo",
+    "author": "Alexandre Dumas",
+    "isbn": "9780140449266",
+    "path": "assets/books/1184.jpg"
+  },
+  {
+    "title": "Crime and Punishment",
+    "author": "Fyodor Dostoevsky",
+    "isbn": "9780143058144",
+    "path": "assets/books/2554.jpg"
+  },
+  {
+    "title": "Adventures of Huckleberry Finn",
+    "author": "Mark Twain",
+    "isbn": "9780142437179",
+    "path": "assets/books/76.jpg"
+  }
+]
