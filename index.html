@@ -9,14 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4.1">
+  <link rel="stylesheet" href="styles.css?v=4.2.2">
   <script src="config.js"></script>
-  <script type="module" src="app.js?v=4.1"></script>
+  <script type="module" src="app.js?v=4.2.2"></script>
 </head>
 <body>
   <header class="site-header">
     <a href="#home" class="brand" aria-label="BookVerse home"><span class="brand-mark" aria-hidden="true">❦</span><span>Book<span class="brand-italic">Verse</span></span></a>
-    <nav class="nav-links" aria-label="Main navigation"><a href="#home" class="nav-link active">Home</a><a href="#reading-list" class="nav-link">2026 Books</a><a href="#shared-library" class="nav-link">Shared Library</a><a href="#other-books" class="nav-link">Other Books</a><a href="#reading-journal" class="nav-link">Reading Journal</a><a class="nav-link" href="#community">Community</a></nav>
+    <nav class="nav-links" aria-label="Main navigation"><a href="#home" class="nav-link active">Home</a><a href="#reading-list" class="nav-link">2026 Books</a><a href="#shared-library" class="nav-link">Shared Library</a><a href="#other-books" class="nav-link">Other Books</a><a href="#reading-journal" class="nav-link">Reading Journal</a><a class="nav-link" href="#classics">Classics</a><a class="nav-link" href="#community">Community</a></nav>
     <div class="nav-actions"><a class="nav-library" href="#shared-library">Browse files <span aria-hidden="true">↗</span></a><button class="avatar" id="accountButton" type="button" aria-label="Member account" title="Member account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></button></div>
   </header>
 
@@ -64,7 +64,7 @@
 
     <section class="closing section-shell"><span>✿</span><p>And so the next chapter begins...</p><span>✿</span></section>
   </main>
-  <footer class="footer"><div><a href="#home" class="brand footer-brand"><span class="brand-mark">❦</span> Book<span class="brand-italic">Verse</span></a><p>Made for the love of reading, and the joy of sharing.</p></div><span>© 2026 BookVerse Reading Club · V4.1 · <a href="#community">Real Book Covers</a></span></footer>
+  <footer class="footer"><div><a href="#home" class="brand footer-brand"><span class="brand-mark">❦</span> Book<span class="brand-italic">Verse</span></a><p>Made for the love of reading, and the joy of sharing.</p></div><span>© 2026 BookVerse Reading Club · V4.2.2 · <a href="#community">Classics & Admin</a> · <a href="https://openlibrary.org/" target="_blank" rel="noopener">Cover source: Open Library</a></span></footer>
 
   <dialog id="clubDialog" class="club-dialog" aria-labelledby="dialogTitle"><form method="dialog" class="dialog-close-row"><button class="dialog-close" value="cancel" aria-label="Close dialog">×</button></form><div class="dialog-content"><span class="pill-label">✦ BOOKVERSE MEMBERS</span><h2 id="dialogTitle">Share a little <em>magic.</em></h2><p id="dialogIntro">Sign in with your club email to upload a book. Everyone can browse and download shared files.</p>
     <div id="authPanel"><form id="loginForm" class="stack-form"><label>Your email<input type="email" name="email" required autocomplete="email" placeholder="reader@example.com"></label><button class="button button-primary" type="submit">Send sign-in link ↗</button></form><p class="hint">For privacy, only invited club members are allowed to upload.</p></div>
