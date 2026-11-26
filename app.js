@@ -1,3 +1,4 @@
+import {installNewsletter} from './newsletter/ui.js';
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 // Transcribed from the club's attached annual reading list, 2026 section.
 const titles = [
@@ -206,7 +207,7 @@ async function initialize(){
     supabase=createClient(config.supabaseUrl,config.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
     const {data}=await supabase.auth.getUser();member=data.user;
     supabase.auth.onAuthStateChange((_event,session)=>{member=session?.user||null;syncMember();});
-    syncMember();await loadFiles();
+    syncMember();installNewsletter(supabase,()=>member);await loadFiles();
   }catch(err){$('#fileCount').textContent='Unavailable';$('#otherCount').textContent='Unavailable';statusEl.textContent=`File-sharing connection failed: ${err.message}`;otherStatus.textContent=statusEl.textContent;}
 }
 initialize();
