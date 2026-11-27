@@ -1,0 +1,12 @@
+begin;
+create table if not exists public.bv_year_books(id uuid primary key default gen_random_uuid(), user_id uuid not null default auth.uid(), title text not null check(length(title) between 1 and 300), author text, finished_on date not null, rating int check(rating between 1 and 5));
+create table if not exists public.bv_year_goals(user_id uuid not null default auth.uid(), year int not null, goal int not null check(goal between 1 and 1000), primary key(user_id,year));
+alter table public.bv_year_books enable row level security;
+alter table public.bv_year_goals enable row level security;
+drop policy if exists bv_year_own on public.bv_year_books;
+create policy bv_year_own on public.bv_year_books for all to authenticated using(user_id=auth.uid() and public.bv_member()) with check(user_id=auth.uid() and public.bv_member());
+drop policy if exists bv_goal_own on public.bv_year_goals;
+create policy bv_goal_own on public.bv_year_goals for all to authenticated using(user_id=auth.uid() and public.bv_member()) with check(user_id=auth.uid() and public.bv_member());
+grant select,insert,update,delete on public.bv_year_books,public.bv_year_goals to authenticated;
+notify pgrst,'reload schema';
+commit;
