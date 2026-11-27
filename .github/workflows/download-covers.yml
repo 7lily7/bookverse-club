@@ -1,0 +1,25 @@
+name: Download BookVerse Covers
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  covers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: pip install Pillow
+      - run: python scripts/download_covers.py
+      - name: Commit covers
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add cover-download-report.txt
+          if [ -d assets/covers ]; then git add assets/covers; fi
+          if [ -d assets/books ]; then git add assets/books/*.jpg 2>/dev/null || true; fi
+          git diff --cached --quiet || git commit -m 'Cache BookVerse covers locally'
+          git push
