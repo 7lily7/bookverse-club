@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fff9f2">
+  <meta name="description" content="BookVerse Club — our cozy home for the 2026 reading list and shared book files.">
+  <title>BookVerse | The 2026 Reading Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=5.1">
+  <script src="config.js"></script>
+  <script type="module" src="app.js?v=6.0"></script>
+<link rel="stylesheet" href="salon.css?v=6.0">
+<link rel="stylesheet" href="bookshelf.css?v=6.2">
+<script defer src="bookshelf.js?v=6.2"></script>
+<script defer src="shelf-polish.js?v=6.2"></script>
+<link rel="stylesheet" href="compact.css?v=6.5">
+<script defer src="compact.js?v=6.5"></script>
+<link rel="stylesheet" href="v7.css?v=7.0"><script defer src="v7.js?v=7.0"></script>
+<script type="module" src="year-books.js?v=7.0.2"></script>
+</head>
+<body class="bv-app">
+  <header class="site-header">
+    <a href="#home" class="brand" aria-label="BookVerse home"><span class="brand-mark" aria-hidden="true">❦</span><span>Book<span class="brand-italic">Verse</span></span></a>
+    <button id="menuToggle" class="outline-btn" aria-expanded="false" aria-controls="mainNav">Menu ☰</button><nav id="mainNav" class="nav-links" aria-label="Main navigation"><a href="#home" class="nav-link active">Home</a><a href="#reading-list" class="nav-link">2026 Books</a><a href="#shared-library" class="nav-link">Shared Library</a><a href="#other-books" class="nav-link">Other Books</a><a href="#reading-journal" class="nav-link">Reading Journal</a><a class="nav-link" href="#classics">Classics</a><a class="nav-link" href="#community">Community</a></nav>
+    <div class="nav-actions"><a class="nav-library" href="#shared-library">Browse files <span aria-hidden="true">↗</span></a><button class="avatar" id="accountButton" type="button" aria-label="Member account" title="Member account"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg></button></div>
+  </header>
+
+  <main>
+    <section class="hero" id="home" aria-label="Welcome to BookVerse Club">
+      <div class="hero-photo" aria-hidden="true"></div><div class="hero-wash" aria-hidden="true"></div>
+      <div class="hero-content"><p class="eyebrow"><span class="eyebrow-line"></span> OUR MANIFESTO</p><h1>I will judge you by your bookshelf</h1><p class="hero-copy">One reading club, countless stories. Discover our 2026 picks, share your book files, and find your next favorite read.</p>
+        <div class="hero-buttons"><a class="button button-primary" href="#reading-list">Explore the 2026 list <span aria-hidden="true">↗</span></a><button class="button button-cream" type="button" data-upload>Share a book <span aria-hidden="true">＋</span></button></div>
+        <div class="hero-micro"><span class="sparkle">✦</span> READ TOGETHER · GROW TOGETHER</div>
+      </div>
+      <div class="hero-badge"><span class="badge-flower">✿</span><span>Our reading<br><strong>era, 2026</strong></span></div>
+    </section>
+
+    <section class="intro section-shell"><div class="intro-label"><span class="tiny-star">✳</span> THE BOOKVERSE CLUB <span class="tiny-star">✳</span></div><h2>Every good story is better <em>shared.</em></h2><p>Welcome to our little literary home. A thoughtful reading list, a warm community, and one easy place to share the books we love.</p><div class="stats"><div><strong>24</strong><span>books to discover</span></div><div class="stat-divider"></div><div><strong>12</strong><span>months of stories</span></div><div class="stat-divider"></div><div><strong>∞</strong><span>pages of possibility</span></div></div></section>
+
+    <section class="reading-section" id="reading-list"><div class="section-shell"><div class="section-topline"><span class="pill-label">✦ OUR SHARED SHELF</span><span class="small-accent">EST. 2026 <span aria-hidden="true">✿</span></span></div><div class="section-heading-row"><div><p class="section-kicker">The annual reading journey</p><h2>Our <em>2026</em> Reading List</h2><p class="section-subtitle">Two books. Every month. A whole year of worlds to explore.</p></div><div class="year-stamp">20<span>26</span><small>THE READING EDITION</small></div></div>
+      <div class="month-picker" id="monthPicker" aria-label="Filter books by month"><button class="month active" data-month="all" type="button">All months</button></div>
+      <div class="v4-filters"><input id="bookQuery" type="search" placeholder="Search title, author or keyword"><select id="languageFilter"><option value="">All original languages</option></select><select id="genreFilter"><option value="">All genres</option></select></div><div class="book-grid" id="bookGrid"></div>
+      <div class="booklist-footer"><span>❧</span> Handpicked for our 2026 reading journey <span>❧</span></div>
+    </div></section>
+
+    <section class="library-section section-shell" id="shared-library"><div class="library-banner"><div class="library-banner-img" aria-hidden="true"></div><div class="library-banner-content"><span class="light-kicker">OUR LITTLE DIGITAL BOOKSHELF</span><h2>A book shared is a<br><em>story multiplied.</em></h2><p>Have a book to contribute? Add it to our club collection so every reader can find it in one cozy place.</p><button class="button button-light" type="button" data-upload>Upload a book <span aria-hidden="true">↗</span></button></div></div>
+      <div class="library-heading"><div><p class="section-kicker">From readers, for readers</p><h2>The <em>Shared Library</em></h2><p class="section-subtitle">Files for our 2026 reading list. Visitors may browse and download; invited members may upload.</p></div><span class="library-count" id="fileCount">Loading…</span></div>
+      <div class="library-toolbar"><label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="librarySearch" type="search" placeholder="Search title, filename or format…" aria-label="Search shared files"></label><button type="button" class="outline-btn" id="refreshFiles" aria-label="Refresh shelf">↻ Refresh</button></div>
+      <div id="libraryStatus" class="library-status" role="status"></div><div id="fileGrid" class="file-grid"><div class="skeleton" aria-hidden="true"></div><div class="skeleton" aria-hidden="true"></div></div>
+    </section>
+
+
+    <section class="other-section section-shell" id="other-books">
+      <div class="other-feature">
+        <div class="other-art" role="img" aria-label="A cozy illustrated bookshelf with books and flowers"></div>
+        <div class="other-feature-content">
+          <span class="pill-label">✦ BEYOND THE READING LIST</span>
+          <p class="section-kicker">An open-ended shelf of discoveries</p>
+          <h2>More stories, <em>more magic.</em></h2>
+          <p>Found something wonderful outside our 2026 picks? Share your own favorite finds with the club. Every book has a place here.</p>
+          <button class="button button-primary" type="button" data-upload-other>Add another book <span aria-hidden="true">＋</span></button>
+        </div>
+      </div>
+      <div class="library-heading other-heading"><div><p class="section-kicker">From our readers, with love</p><h2>The <em>Other Books</em> Shelf</h2><p class="section-subtitle">Independent discoveries outside the annual list. Invited members may contribute.</p></div><span class="library-count" id="otherCount">Loading…</span></div>
+      <div class="library-toolbar"><label class="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="otherSearch" type="search" placeholder="Search title, filename or format…" aria-label="Search other books"></label><button type="button" class="outline-btn" id="refreshOther" aria-label="Refresh shelf">↻ Refresh</button></div>
+      <div id="otherStatus" class="library-status" role="status" aria-live="polite"></div>
+      <div id="otherGrid" class="file-grid other-file-grid"><div class="skeleton" aria-hidden="true"></div><div class="skeleton" aria-hidden="true"></div></div>
+    </section>
+
+    <section class="closing section-shell"><span>✿</span><p>And so the next chapter begins...</p><span>✿</span></section>
+  </main>
+  <footer class="footer"><div><a href="#home" class="brand footer-brand"><span class="brand-mark">❦</span> Book<span class="brand-italic">Verse</span></a><p>Made for the love of reading, and the joy of sharing.</p></div><span>© 2026 BookVerse Reading Club · V7.0 Preview · <a href="#classics">Classics</a> · <a href="#community">Community</a> · <a href="https://openlibrary.org/" target="_blank" rel="noopener">Cover source: Open Library</a></span></footer>
+
+  <dialog id="clubDialog" class="club-dialog" aria-labelledby="dialogTitle"><form method="dialog" class="dialog-close-row"><button class="dialog-close" value="cancel" aria-label="Close dialog">×</button></form><div class="dialog-content"><span class="pill-label">✦ BOOKVERSE MEMBERS</span><h2 id="dialogTitle">Share a little <em>magic.</em></h2><p id="dialogIntro">Sign in with your club email to upload a book. Everyone can browse and download shared files.</p>
+    <div id="authPanel"><form id="loginForm" class="stack-form"><label>Your email<input type="email" name="email" required autocomplete="email" placeholder="reader@example.com"></label><button class="button button-primary" type="submit">Send sign-in link ↗</button></form><p class="hint bv-unlock">🔒 Sign in to unlock the upload form. Only invited club members can upload.</p></div>
+    <div id="signedPanel" hidden><p class="member-line">Signed in as <strong id="signedEmail"></strong> · <button type="button" class="text-btn" id="signOut">Sign out</button></p><form id="uploadForm" class="stack-form"><label>Choose a shelf<select id="uploadType"><option value="reading">2026 Reading List</option><option value="other">Other Books</option></select></label><label id="readingBookField">Reading-list title <small>Choose one of the 24 annual selections.</small><select id="uploadBook" required></select></label><label id="otherTitleField" hidden>Book title <small>Enter the title of your independent book.</small><input id="otherTitle" type="text" maxlength="80" placeholder="e.g. A favorite novel" autocomplete="off"></label><label>Choose a book file<input type="file" id="uploadFile" accept=".pdf,.epub,.docx,.txt,.mobi" required></label><p class="hint">PDF, EPUB, DOCX, TXT, or MOBI · Maximum 20 MB · Share only files you have permission to distribute.</p><progress id="uploadProgress" max="100" value="0" hidden></progress><p id="uploadCheck" role="status"></p><button class="button button-primary" id="uploadSubmit" type="submit">Upload to the club ↗</button></form></div>
+    <div class="dialog-feedback" id="dialogFeedback" role="status" aria-live="polite"></div>
+  </div></dialog>
+</body>
+</html>
